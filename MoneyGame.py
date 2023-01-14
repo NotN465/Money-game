@@ -2,8 +2,9 @@ import time
 import random
 import requests
 import math
-Question = input('Do you want to\n Withdraw - 1\n Deposit - 2\n Balance - 3\n Beg - 4\n Job - 5\n Work - 6\n Search - 7\n Crypto')
-
+import json
+Question = input('Do you want to\n Withdraw - 1\n Deposit - 2\n Balance - 3\n Beg - 4\n Job - 5\n Work - 6\n Search - 7\n Crypto - 8\n Trader - 9')
+items_for_search = ['stick','trash','old phone','book']
 if Question == '2':
       deposit = int(input('how much would you like to deposit?'))
       Deposit = open("Dzep.txt", 'r')
@@ -126,7 +127,7 @@ if Question == '6':
             print(f'You now have ${Banka.read()}')
 
 if Question == '7':
-    random_choice_for_search = random.randint(1,2)
+    random_choice_for_search = random.randint(1,3)
     if random_choice_for_search == 1:
         print('Unfortunately you found nothing')
     if random_choice_for_search == 2:
@@ -137,6 +138,19 @@ if Question == '7':
         dzepread_and_random_money_choice = int(Dzepread) + random_money_choice
         Dzep = open('Dzep.txt','w')
         Dzep.write(f'{dzepread_and_random_money_choice}')
+    if random_choice_for_search == 3:
+        def write_json(new_data, filename='inventory.json'):
+            with open(filename, 'r+') as file1:
+                file1_data = json.load(file1)
+                file1_data['data'].append(new_data)
+                file1.seek(0)
+                json.dump(file1_data, file1, indent=4)
+    random_choice = random.choice(items_for_search)
+    items = {
+        'item':f'{random_choice}'
+    }
+    write_json(items)
+    print(f'You found a {random_choice}')
 if Question == '8':
     base_url = "https://api.binance.com/api/v3"
     symbols = ["BTC"]
@@ -183,3 +197,22 @@ if Question == '8':
                 Banka.write(f'{Reading_Bank_input6}')
             if input6 >= float(Reading_Crypto) * float(price):
                 print('You dont have enough money on your Crypto account')
+if Question == '9':
+    print('Hello i am the trader, do you wish to buy or sell some items?')
+    input10 = str(input('Buy or Sell? :'))
+    if input10 == 'Sell':
+        opening_json = open('inventory.json')
+        data1 = json.load(opening_json)
+        data2 = data1['data']
+        print('Your inventory')
+        for i in data2:
+            print(i['item'])
+
+        input11 = str(input('What do you wish to sell? :'))
+        if input11 == 'stick':
+           if i['item'] == 'stick':
+
+
+                print('Sold for 0.01$')
+
+
