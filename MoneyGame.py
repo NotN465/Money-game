@@ -4,7 +4,11 @@ import requests
 import math
 import json
 Question = input('Do you want to\n Withdraw - 1\n Deposit - 2\n Balance - 3\n Beg - 4\n Job - 5\n Work - 6\n Search - 7\n Crypto - 8\n Trader - 9')
-items_for_search = ['stick','trash','old phone','book']
+
+items_for_search = ['stick','old phone','book']
+
+
+
 if Question == '2':
       deposit = int(input('how much would you like to deposit?'))
       Deposit = open("Dzep.txt", 'r')
@@ -139,18 +143,52 @@ if Question == '7':
         Dzep = open('Dzep.txt','w')
         Dzep.write(f'{dzepread_and_random_money_choice}')
     if random_choice_for_search == 3:
-        def write_json(new_data, filename='inventory.json'):
-            with open(filename, 'r+') as file1:
-                file1_data = json.load(file1)
-                file1_data['data'].append(new_data)
-                file1.seek(0)
-                json.dump(file1_data, file1, indent=4)
-    random_choice = random.choice(items_for_search)
-    items = {
-        'item':f'{random_choice}'
-    }
-    write_json(items)
-    print(f'You found a {random_choice}')
+        random_item_choice = random.choice(items_for_search)
+        if random_item_choice == "stick":
+            with open('inventory.json','r+') as f:
+                data = json.load(f)
+                data2 = data['data'][0]['stick_count']
+                random_sticks_choice = random.randint(1,3)
+                sticks = data2 + random_sticks_choice
+                data2 = data['data'][0]['stick_count'] = sticks
+                with open('inventory.json','w') as f:
+                    json.dump(data,f)
+                print(f'You found {random_sticks_choice} sticks')
+                print(f'You now have {sticks} sticks')
+        if random_item_choice == "old phone":
+            with open('inventory.json','r+') as f:
+                data = json.load(f)
+                data2 = data['data'][1]['old_phone_count']
+                random_old_phone_choice = random.randint(0,1)
+                if random_old_phone_choice == 0:
+                    print('Unfortunately you found 0 old phones')
+                else:
+                    old_phones = data2 + random_old_phone_choice
+                    data2 = data['data'][1]['old_phone_count'] = old_phones
+                    with open('inventory.json','w') as f:
+                        json.dump(data,f)
+                    print(f'You found {random_old_phone_choice} old phone')
+                    print(f'You now have {old_phones} old phones')
+        if random_item_choice == 'book':
+            with open('inventory.json','r+') as f:
+                data = json.load(f)
+                data2 = data['data'][2]['book_count']
+                random_book_choice = random.randint(0,1)
+                if random_book_choice == 0:
+                    print('Unfortunately you found 0 books')
+                else:
+                    book = data2 + random_book_choice
+                    data2 = data['data'][2]['book_count'] = book
+                    with open('inventory.json','w') as f:
+                        json.dump(data,f)
+                    print(f'You found {random_book_choice} book')
+                    print(f'You now have {book} books')
+
+
+
+
+
+
 if Question == '8':
     base_url = "https://api.binance.com/api/v3"
     symbols = ["BTC"]
@@ -206,13 +244,81 @@ if Question == '9':
         data2 = data1['data']
         print('Your inventory')
         for i in data2:
-            print(i['item'])
+            print(i)
 
         input11 = str(input('What do you wish to sell? :'))
         if input11 == 'stick':
-           if i['item'] == 'stick':
-
-
-                print('Sold for 0.01$')
-
+            input12 = int(input('How much sticks do you wish to sell? :'))
+            with open('inventory.json','r+') as f:
+                data = json.load(f)
+                data2 = data['data'][0]['stick_count']
+            if data2 >= input12:
+                with open('inventory.json', 'r+') as f:
+                    data = json.load(f)
+                    data2 = data['data'][0]['stick_count']
+                    sticks = data2 - input12
+                    data2 = data['data'][0]['stick_count'] = sticks
+                    with open('inventory.json', 'w') as f:
+                        json.dump(data, f)
+                    print(f'You now have {sticks} sticks')
+                with open('Dzep.txt','r') as d:
+                    Dzep = d.read()
+                with open('Dzep.txt','w') as d:
+                    multiply_input12 = input12 * 1
+                    Dzep_stick = int(Dzep) + multiply_input12
+                    d.write(f'{Dzep_stick}')
+                    print(f'You sold {input12} sticks for {multiply_input12}$')
+                    print(f'You now have {Dzep_stick}$ in your pocket')
+            else:
+                print('You dont have that much sticks')
+        if input11 == 'old phone':
+            input12 = int(input('How much old phones do you wish to sell? :'))
+            with open('inventory.json','r+') as f:
+                data = json.load(f)
+                data2 = data['data'][1]['old_phone_count']
+            if data2 >= input12:
+                with open('inventory.json', 'r+') as f:
+                    data = json.load(f)
+                    data2 = data['data'][1]['old_phone_count']
+                    old_phones = data2 - input12
+                    data2 = data['data'][1]['old_phone_count'] = old_phones
+                    with open('inventory.json', 'w') as f:
+                        json.dump(data, f)
+                    print(f'You now have {old_phones} old phones')
+                with open('Dzep.txt','r') as d:
+                    Dzep = d.read()
+                with open('Dzep.txt','w') as d:
+                    random_phone_money_choice = random.randint(50,100)
+                    multiply_input12 = input12 * random_phone_money_choice
+                    Dzep_old_phone = int(Dzep) + multiply_input12
+                    d.write(f'{Dzep_old_phone}')
+                    print(f'You sold {input12} old phones for {multiply_input12}$')
+                    print(f'You now have {Dzep_old_phone}$ in your pocket')
+            else:
+                print('You dont have that much old phones')
+        if input11 == 'book':
+            input12 = int(input('How much books do you wish to sell? :'))
+            with open('inventory.json','r+') as f:
+                data = json.load(f)
+                data2 = data['data'][2]['book_count']
+            if data2 >= input12:
+                with open('inventory.json', 'r+') as f:
+                    data = json.load(f)
+                    data2 = data['data'][2]['book_count']
+                    books = data2 - input12
+                    data2 = data['data'][2]['book_count'] = books
+                    with open('inventory.json', 'w') as f:
+                        json.dump(data, f)
+                    print(f'You now have {books} books')
+                with open('Dzep.txt','r') as d:
+                    Dzep = d.read()
+                with open('Dzep.txt','w') as d:
+                    random_book_money_choice = random.randint(10,30)
+                    multiply_input12 = input12 * random_book_money_choice
+                    Dzep_book = int(Dzep) + multiply_input12
+                    d.write(f'{Dzep_book}')
+                    print(f'You sold {input12} books for {multiply_input12}$')
+                    print(f'You now have {Dzep_book}$ in your pocket')
+            else:
+                print('You dont have that much books')
 
