@@ -17,3 +17,5 @@ I made a little money game where you can trade crypto, work, beg, and some other
 7 - You are going to go around the city and search for money
 
 8 - You can trade buy or sell bitcoin 
+
+9 - Here you can trade with a trader(I am still working on the buy section) with the items you found
