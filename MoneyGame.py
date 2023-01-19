@@ -321,4 +321,118 @@ if Question == '9':
                     print(f'You now have {Dzep_book}$ in your pocket')
             else:
                 print('You dont have that much books')
+    if input10 == 'Buy':
+        input13 = str(input('Welcome, what do you wish to buy?\n Stick - 2$\n Old Phone - 120$\n Phone - 500$\n Book - 20$'))
+        if input13 == 'Stick':
+            input14 = int(input('How much sticks do you wish to buy? :'))
+            with open('inventory.json','r') as f:
+                data = json.load(f)
+                data2 = data['data'][0]['stick_count']
+                data3 = data2 + input14
+                data2 = data['data'][0]['stick_count'] = data3
+                with open('inventory.json','w') as f:
+                    json.dump(data,f)
+                print(f'You now have {data3} sticks')
+                Dzep = open('Dzep.txt','r')
+                Reading_Dzep = Dzep.read()
+                Reading_Dzep_input14 = input14 * 2
+                Reading_Dzep_Reading_Dzep_input14 = int(Reading_Dzep) - Reading_Dzep_input14
+                if Reading_Dzep_Reading_Dzep_input14 > 0:
+                    Dzep = open('Dzep.txt','w')
+                    Dzep.write(f'{Reading_Dzep_Reading_Dzep_input14}')
+                else:
+                    with open('inventory.json', 'r') as f:
+                        data = json.load(f)
+                        data2 = data['data'][0]['stick_count']
+                        data3 = data2 - input14
+                        data2 = data['data'][0]['stick_count'] = data3
+                        with open('inventory.json', 'w') as f:
+                            json.dump(data, f)
+                        print(f'Unfortuneatly you dont have enough money to buy {input14} sticks')
+        if input13 == 'Old Phone':
+            input14 = int(input('How much old phones do you wish to buy? :'))
+            with open('inventory.json','r') as f:
+                data = json.load(f)
+                data2 = data['data'][1]['old_phone_count']
+                data3 = data2 + input14
+                data2 = data['data'][1]['old_phone_count'] = data3
+                with open('inventory.json','w') as f:
+                    json.dump(data,f)
+                print(f'You now have {data3} old phones')
+                Dzep = open('Dzep.txt','r')
+                Reading_Dzep = Dzep.read()
+                Reading_Dzep_input14 = input14 * 120
+                Reading_Dzep_Reading_Dzep_input14 = int(Reading_Dzep) - Reading_Dzep_input14
+                if Reading_Dzep_Reading_Dzep_input14 > 0:
+                    Dzep = open('Dzep.txt','w')
+                    Dzep.write(f'{Reading_Dzep_Reading_Dzep_input14}')
+                else:
+                    with open('inventory.json', 'r') as f:
+                        data = json.load(f)
+                        data2 = data['data'][1]['old_phone_count']
+                        data3 = data2 - input14
+                        data2 = data['data'][1]['old_phone_count'] = data3
+                        with open('inventory.json', 'w') as f:
+                            json.dump(data, f)
+                        print(f'Unfortuneatly you dont have enough money to buy {input14} old phones')
+        if input13 == 'Book':
+            input14 = int(input('How much books do you wish to buy? :'))
+            with open('inventory.json','r') as f:
+                data = json.load(f)
+                data2 = data['data'][2]['book_count']
+                data3 = data2 + input14
+                data2 = data['data'][2]['book_count'] = data3
+                with open('inventory.json','w') as f:
+                    json.dump(data,f)
+                print(f'You now have {data3} books')
+                Dzep = open('Dzep.txt','r')
+                Reading_Dzep = Dzep.read()
+                Reading_Dzep_input14 = input14 * 20
+                Reading_Dzep_Reading_Dzep_input14 = int(Reading_Dzep) - Reading_Dzep_input14
+                if Reading_Dzep_Reading_Dzep_input14 > 0:
+                    Dzep = open('Dzep.txt','w')
+                    Dzep.write(f'{Reading_Dzep_Reading_Dzep_input14}')
+                else:
+                    with open('inventory.json', 'r') as f:
+                        data = json.load(f)
+                        data2 = data['data'][2]['book_count']
+                        data3 = data2 - input14
+                        data2 = data['data'][2]['book_count'] = data3
+                        with open('inventory.json', 'w') as f:
+                            json.dump(data, f)
+                        print(f'Unfortuneatly you dont have enough money to buy {input14} books')
+        if input13 == 'Phone':
+            input14 = int(input('How much phones do you wish to buy? :'))
+            with open('inventory.json','r') as f:
+                data = json.load(f)
+                data2 = data['data'][3]['phone_count']
+                data3 = data2 + input14
+                data2 = data['data'][3]['phone_count'] = data3
+                with open('inventory.json','w') as f:
+                    json.dump(data,f)
+                print(f'You now have {data3} phones')
+                Dzep = open('Dzep.txt','r')
+                Reading_Dzep = Dzep.read()
+                Reading_Dzep_input14 = input14 * 500
+                Reading_Dzep_Reading_Dzep_input14 = int(Reading_Dzep) - Reading_Dzep_input14
+                if Reading_Dzep_Reading_Dzep_input14 > 0:
+                    Dzep = open('Dzep.txt','w')
+                    Dzep.write(f'{Reading_Dzep_Reading_Dzep_input14}')
+                else:
+                    with open('inventory.json', 'r') as f:
+                        data = json.load(f)
+                        data2 = data['data'][3]['phone_count']
+                        data3 = data2 - input14
+                        data2 = data['data'][3]['phone_count'] = data3
+                        with open('inventory.json', 'w') as f:
+                            json.dump(data, f)
+                        print(f'Unfortuneatly you dont have enough money to buy {input14} phones')
+
+
+
+
+
+
+
+
 
