@@ -3,13 +3,15 @@ import random
 import requests
 import math
 import json
-Question = input('Do you want to\n Withdraw - 1\n Deposit - 2\n Balance - 3\n Beg - 4\n Job - 5\n Work - 6\n Search - 7\n Crypto - 8\n Trader - 9')
+Question = input('Do you want to\n Withdraw - 1\n Deposit - 2\n Balance - 3\n Beg - 4\n Job - 5\n Work - 6\n Search - 7\n Crypto - 8\n Trader - 9\n Taxi - 10')
 
 items_for_search = ['stick','old phone','book']
 
 
-
 if Question == '2':
+    Place = open('Place.txt','r')
+    Reading_place = Place.read()
+    if Reading_place == 'Bank':
       deposit = int(input('how much would you like to deposit?'))
       Deposit = open("Dzep.txt", 'r')
       Money_in_pocket = int(Deposit.read())
@@ -32,7 +34,12 @@ if Question == '2':
 
       else:
           print('You dont have enough money')
+    else:
+        print(f'You are not at the bank you are at {Reading_place}')
 if Question == '1':
+ Place = open('Place.txt','r')
+ Reading_place = Place.read()
+ if Reading_place == 'Bank':
     withdraw = int(input('much would you like to withdraw'))
     Withdraw = open('Banka.txt', 'r')
     Withdraw3 = int(Withdraw.read())
@@ -53,12 +60,19 @@ if Question == '1':
         print(f'You have ${Reading_Withdraw2} in your pocket')
     else:
         print('ako ovo neradi previse cu vremena potrosit na skriptu koju sam vec napravio.')
+ else:
+     print(f'You are not at the bank you are at {Reading_place}')
 if Question == '3':
+ Place = open('Place.txt','r')
+ Reading_place = Place.read()
+ if Reading_place == 'Bank':
     Banka = open('Banka.txt','r')
     Dzep = open('Dzep.txt','r')
     Pare_u_banci = Banka.read()
     Pare_u_dzepu = Dzep.read()
     print(f'You have ${Pare_u_banci} in your bank and ${Pare_u_dzepu} in your pocket ')
+ else:
+     print(f'You are not at the bank you are at {Reading_place}')
 if Question == '4':
     Dzep1 = open('Dzep.txt','r')
     Reading_Dzep1 = Dzep1.read()
@@ -72,7 +86,7 @@ if Question == '4':
 if Question == '5':
     Job = open('Job.txt','w')
     input2 = str(input('Do you wish to change or set a job? Type Yes to confirm:'))
-#If you want a job
+    #If you want a job
     if input2  == 'Yes':
         #Job picking
         input3 = int(input('Do you wish to work as\n Mechanical Enginner - 1\n Doctor - 2\n Construction worker - 3'))
@@ -90,6 +104,9 @@ if Question == '5':
             print('You now work as a Construction worker')
 #If you already have a job
 if Question == '6':
+    Place = open('Place.txt', 'r')
+    Reading_place = Place.read()
+    if Reading_place == 'Job':
         #Job paying
         Job = open('Job.txt', 'r')
         Reading_Job = Job.read()
@@ -129,6 +146,8 @@ if Question == '6':
             Banka.write(f'{Placa}')
             Banka = open('Banka.txt','r')
             print(f'You now have ${Banka.read()}')
+    else:
+        print(f'You are not at your job you are at {Reading_place}')
 
 if Question == '7':
     random_choice_for_search = random.randint(1,3)
@@ -203,7 +222,7 @@ if Question == '8':
         Crypto =open('Crypto.txt','r')
         Reading_Crypto = Crypto.read()
         print(f'Your Crypto balance:\n{float(Reading_Crypto)*float(price)}')
-        input4 = str(input('Do you wan to Buy or Sell or use Laverage?'))
+        input4 = str(input('Do you want to Buy or Sell?'))
         if input4 == 'Buy':
             input5 = int(input('How much do you wish to buy in dollars?'))
             Banka = open('Banka.txt','r')
@@ -236,6 +255,9 @@ if Question == '8':
             if input6 >= float(Reading_Crypto) * float(price):
                 print('You dont have enough money on your Crypto account')
 if Question == '9':
+ Place = open('Place.txt','r')
+ Reading_place = Place.read()
+ if Reading_place == 'Trader':
     print('Hello i am the trader, do you wish to buy or sell some items?')
     input10 = str(input('Buy or Sell? :'))
     if input10 == 'Sell':
@@ -427,10 +449,74 @@ if Question == '9':
                         with open('inventory.json', 'w') as f:
                             json.dump(data, f)
                         print(f'Unfortuneatly you dont have enough money to buy {input14} phones')
-
-
-
-
+ else:
+     print(f'You are not at the tarders place you are at {Reading_place}')
+if Question == '10':
+        input15 = str(input('Hi, where do you wish to go\n Bank - 50$\n Home - 20$ \n Trader - 30$ \n Job - 25$'))
+        if input15 == 'Bank':
+            Dzep = open('Dzep.txt','r')
+            Reading_Dzep = Dzep.read()
+            if int(Reading_Dzep) >= 50:
+             Reading_Dzep_Bank = int(Reading_Dzep) - 50
+             Dzep = open('Dzep.txt','w')
+             Dzep.write(f'{Reading_Dzep_Bank}')
+             print('Ok we will arrive in 10 minutes')
+             time.sleep(0.5)
+             print('Driving...')
+             time.sleep(10)
+             print('We arrived at the bank, have a good day!')
+             Place = open('Place.txt','w')
+             Place.write('Bank')
+            else:
+                print('You dont have enough money in your pocket')
+        if input15 == 'Home':
+            Dzep = open('Dzep.txt','r')
+            Reading_Dzep = Dzep.read()
+            if int(Reading_Dzep) >= 20:
+             Reading_Dzep_Home = int(Reading_Dzep) - 20
+             Dzep = open('Dzep.txt','w')
+             Dzep.write(f'{Reading_Dzep_Home}')
+             print('Ok we will arrive in 4 minutes')
+             time.sleep(0.5)
+             print('Driving...')
+             time.sleep(4)
+             print('We arrived at your house, have a good day!')
+             Place = open('Place.txt','w')
+             Place.write('Home')
+            else:
+                print('You dont have enough money in your pocket')
+        if input15 == 'Trader':
+            Dzep = open('Dzep.txt','r')
+            Reading_Dzep = Dzep.read()
+            if int(Reading_Dzep) >= 30:
+             Reading_Dzep_Trader = int(Reading_Dzep) - 30
+             Dzep = open('Dzep.txt','w')
+             Dzep.write(f'{Reading_Dzep_Trader}')
+             print('Ok we will arrive in 6 minutes')
+             time.sleep(0.5)
+             print('Driving...')
+             time.sleep(6)
+             print('We arrived at the Trader place, have a good day!')
+             Place = open('Place.txt','w')
+             Place.write('Trader')
+            else:
+                print('You dont have enough money in your pocket')
+        if input15 == 'Job':
+            Dzep = open('Dzep.txt','r')
+            Reading_Dzep = Dzep.read()
+            if int(Reading_Dzep) >= 50:
+             Reading_Dzep_Job = int(Reading_Dzep) - 25
+             Dzep = open('Dzep.txt','w')
+             Dzep.write(f'{Reading_Dzep_Job}')
+             print('Ok we will arrive in 5 minutes')
+             time.sleep(0.5)
+             print('Driving...')
+             time.sleep(5)
+             print('We arrived at your job, have a good day!')
+             Place = open('Place.txt','w')
+             Place.write('Job')
+            else:
+                print('You dont have enough money in your pocket')
 
 
 
